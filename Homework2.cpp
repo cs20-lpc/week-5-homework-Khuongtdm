@@ -8,13 +8,29 @@ struct Node {
 
 // Floyd's cycle-finding algorithm (Tortoise and Hare)
 bool hasCycle(Node* head) {
-    if (!head) return false;
     Node* slow = head;
     Node* fast = head->next;
-    while (fast && fast->next) {
-        if (slow == fast) return true;
-        slow = slow->next;
-        fast = fast->next->next;
+    bool slowChecker = false;
+    while (fast && fast->next)
+    {
+       // cout << "fast:" << fast 
+        if (fast == slow)
+            return true;
+        /*
+        if (slowChecker == true)
+        {
+            fast = fast->next;
+            slowChecker = false;
+            continue;
+        }
+        */
+        if (slowChecker == false)
+        {
+            slowChecker = true;
+            slow = slow->next;
+        }
+        else slowChecker = false;
+        fast = fast->next;
     }
     return false;
 }
